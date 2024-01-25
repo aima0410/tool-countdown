@@ -1,0 +1,72 @@
+@charset "utf-8";
+*{
+  color:#4c4c4c;
+  font-family:f'Noto Sans JP', sans-serif;
+  letter-spacing:0.04em;
+}
+body{
+  padding:0 0 100px;
+  background-color:rgb(190, 235, 227);
+}
+main{
+  position:absolute;
+  top:100px;
+  left:0;
+  right:0;
+  width:500px;
+  padding:50px 40px 40px;
+  background-color:#fff;
+  border-radius:10px;
+  margin:0 auto;
+}
+#fieldset{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  width:100%;
+}
+#timer{
+  /* カーソルを透明化して非表示 */
+  caret-color:transparent;
+  width:100%;
+  border:solid 1px transparent;
+  border-radius:10px;
+  margin:0 0 10px;
+  font-size:80px;
+  text-align:center;
+}
+#timer:focus{
+  outline:none;
+  border:solid 1px #89c6b7;
+  border-radius:10px;
+}
+#message{
+  margin-bottom:-11px;
+  color:#7eb8a9;
+  font-size:10px;
+  text-align:center;
+}
+#btn{
+  width:100%;
+  padding:15px 0;
+  background-color:#7eb8a9;
+  border-radius:5px;
+  box-shadow:0 5px 5px #ddd;
+  margin:30px 0 5px;
+  color:#fff;
+  font-size:30px;
+  text-align:center;
+  transition:all 200ms ease;
+}
+#btn:hover{
+  background-color:#679a8c;
+}
+#btn:active{
+  box-shadow:none;
+  transform:translateY(3px);
+}
+#btn:disabled{
+  background-color:#669589;
+  box-shadow:none;
+  transform:translateY(3px);
+}
