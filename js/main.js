@@ -87,7 +87,6 @@
     if (!(timer.value)) {
       timer.value = '00:00';
     }
-    console.log(timer.value.length);
     timer.setSelectionRange(timer.value.length, timer.value.length);
   });
   // ----------------------------
@@ -132,10 +131,10 @@
     if (checkEKey(e)) {
       // valueの先頭２文字と同じキーが押された場合はバグが生じるのでキャンセル
       if (e.key === timer.value[0] || e.key === timer.value[1]) {
+        e.preventDefault();
         // 現在の表示をダウンロード
         const beforeText = timer.value;
         isCreateAfterValue(beforeText, e.key);
-        e.preventDefault();
       }
     } else {
       e.preventDefault();
@@ -156,6 +155,6 @@
   });
   // ============================= 処理の宣言 ============================
   window.addEventListener('load',()=>{
-    
+
   });
 }
