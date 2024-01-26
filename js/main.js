@@ -10,6 +10,8 @@
   const inputNumBtns = document.querySelectorAll('.input-btn__num');
   const inputClearBtn = document.querySelector('#input-btn__clear');
   const inputAllClearBtn = document.querySelector('#input-btn__all-clear');
+  const mask = document.querySelector('#mask');
+  const maskCloseBtn = document.querySelector('#ending-message__close-btn');
   let endTime;
   let nowTime;
   let stopIntervalId;
@@ -35,6 +37,13 @@
     if (countDown < 0) {
       setTimeout(onPress, 300);
       clearInterval(stopIntervalId);
+      setTimeout(
+        (() => {
+          mask.classList.remove('hide');
+          maskCloseBtn.addEventListener('click',()=>{
+            mask.classList.add('hide');
+          });
+        }), 400);
       timer.value = '00:00';
       return;
     }
@@ -410,3 +419,8 @@
     }
   });
 }
+// ============================= 学習メモ ============================
+// viewportごとに処理を変えたいときに使える↓↓
+// const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+// if (viewportWidth < 500) { }
+
