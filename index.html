@@ -13,14 +13,33 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Noto+Sans+JP&display=swap"
+    rel="stylesheet">
 </head>
 
 <body>
   <main>
-    <fieldset>
-      <input id="timer" type="text" placeholder="00:00">
-      <button id="btn">START</button>
+    <fieldset id="timer-field">
+      <input id="timer" type="text" placeholder="00:00" data-savetime="0">
+      <fieldset id="do-field">
+        <button id="start-btn" class="do-btn">START</button>
+        <button id="stop-btn" class="do-btn hide" disabled>STOP</button>
+        <button id="reset-btn" class="do-btn hide" disabled>RESET</button>
+      </fieldset>
+      <fieldset id="input-field">
+        <button class="input-btn input-btn__num">1</button>
+        <button class="input-btn input-btn__num">2</button>
+        <button class="input-btn input-btn__num">3</button>
+        <button class="input-btn input-btn__num">4</button>
+        <button class="input-btn input-btn__num">5</button>
+        <button class="input-btn input-btn__num">6</button>
+        <button class="input-btn input-btn__num">7</button>
+        <button class="input-btn input-btn__num">8</button>
+        <button class="input-btn input-btn__num">9</button>
+        <button id="input-btn__clear" class="input-btn" disabled>C</button>
+        <button class="input-btn input-btn__num">0</button>
+        <button id="input-btn__all-clear" class="input-btn" disabled>AC</button>
+      </fieldset>
     </fieldset>
   </main>
 </body>
