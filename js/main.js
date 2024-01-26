@@ -387,6 +387,9 @@
       if (!(timer.value)) {
         timer.value = '00:00';
       }
+      if (timer.dataset.savetime !== '0') {
+        timer.dataset.savetime = '0';
+      }
       const addedCharacter = Number(inputNumBtns[i].textContent);
       const beforeText = timer.value;
       isCreateAfterValue(beforeText, addedCharacter);
@@ -413,6 +416,9 @@
       inputClearBtn.disabled = false;
       inputAllClearBtn.disabled = false;
     }
+    if (timer.dataset.savetime !== '0') {
+      timer.dataset.savetime = '0';
+    }
   })
   // ----------------------------
   inputAllClearBtn.addEventListener('click', () => {
@@ -420,6 +426,10 @@
 
     inputClearBtn.disabled = true;
     inputAllClearBtn.disabled = true;
+
+    if (timer.dataset.savetime !== '0') {
+      timer.dataset.savetime = '0';
+    }
   })
   // ----------------------------
   // ダブルタップによるか画面拡大防止
