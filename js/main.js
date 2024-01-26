@@ -3,7 +3,6 @@
   // ============================= 変数の宣言 ============================
   const timer = document.querySelector('#timer');
   const doField = document.querySelector('#do-field');
-  const doBtns = document.querySelectorAll('.do-btn');
   const startBtn = document.querySelector('#start-btn');
   const stopBtn = document.querySelector('#stop-btn');
   const resetBtn = document.querySelector('#reset-btn');
@@ -42,6 +41,9 @@
         (() => {
           mask.classList.remove('hide');
           maskCloseBtn.addEventListener('click', () => {
+            mask.classList.add('hide');
+          });
+          mask.addEventListener('click', ()=>{
             mask.classList.add('hide');
           });
         }), 400);
