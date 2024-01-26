@@ -44,6 +44,23 @@ main{
   border:solid 1px #89c6b7;
   border-radius:10px;
 }
+#timer:disabled{
+  all:unset;
+  /* iPhoneのみ何故かdisabledに特殊なスタイルが掛かってしまっているのでそれを手間をかけてリセット */
+  caret-color:transparent;
+  width:100%;
+  padding-bottom:5px;
+  border:solid 1px transparent;
+  border-radius:10px;
+  margin:0 0 8px;
+  color:#595959;
+  font-family: 'Montserrat', sans-serif;
+  font-size:100px;
+  text-align:center;
+  font-weight:bold;
+  letter-spacing:0.08em;
+  transition:all 300ms ease;
+}
 #message{
   margin-bottom:-12px;
   color:#7eb8a9;
@@ -215,6 +232,10 @@ main{
     width:90%;
     font-size:80px;
   }
+  #timer:disabled{
+    width:90%;
+    font-size:80px;
+  }
   #do-field{
     width:90%;
   }
@@ -235,9 +256,17 @@ main{
     width:90%;
     font-size:70px;
   }
+  #timer:disabled{
+    width:90%;
+    font-size:70px;
+  }
 }
 @media screen and (max-width:374px) {
   #timer{
+    width:90%;
+    font-size:70px;
+  }
+  #timer:disabled{
     width:90%;
     font-size:70px;
   }
@@ -247,9 +276,17 @@ main{
     width:90%;
     font-size:60px;
   }
+  #timer:disabled{
+    width:90%;
+    font-size:60px;
+  }
 }
 @media screen and (max-width:333px) {
   #timer{
+    width:90%;
+    font-size:50px;
+  }
+  #timer:disabled{
     width:90%;
     font-size:50px;
   }
