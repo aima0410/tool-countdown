@@ -393,6 +393,15 @@
     inputClearBtn.disabled = true;
     inputAllClearBtn.disabled = true;
   })
+  // ----------------------------
+  document.addEventListener('touchend', function (event) {
+    let lastTouchEnd;
+    let now = new Date().getTime();
+    if (now - lastTouchEnd <= 300) {
+      event.preventDefault();
+    }
+    lastTouchEnd = now;
+  });
   // ============================= 処理の宣言 ============================
   window.addEventListener('load', () => {
     if (timer.value === '00:00') {
