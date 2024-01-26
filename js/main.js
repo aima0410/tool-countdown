@@ -165,7 +165,14 @@
   // ----------------------------
   timer.addEventListener('focus', () => {
     const message = document.createElement('p');
-    message.textContent = 'そのまま半角数字を入力し、タイマーをセットして下さい。';
+    const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+    if (viewportWidth < 500) {
+      message.textContent = '半角数字を入力し、タイマーをセットして下さい。';
+    } else if (viewportWidth < 335) {
+      message.textContent = '半角数字を入力し、タイマーをセットして下さい。';
+    } else {
+      message.textContent = 'そのまま半角数字を入力し、タイマーをセットして下さい。';
+    }
     message.setAttribute('id', 'message');
     timer.parentNode.insertBefore(message, doField);
   });
@@ -206,7 +213,7 @@
     // 数字以外のキーをキャンセル（※Backspaceも含む）
     if (checkEKey(e)) {
       // valueの先頭２文字と同じキーが押された場合はバグが生じるのでキャンセル
-      if (e.key === timer.value[0] || e.key === timer.value[1]) {
+      if ((e.key === timer.value[0] || e.key === timer.value[1]) || (e.code === timer.value[0] || e.code === timer.value[1])) {
         e.preventDefault();
         let keyCode = e.which || e.keyCode;
         const os = navigator.platform;
@@ -243,20 +250,21 @@
           }
         }
       }
-    } else if (e.key === 'Enter') {
+    } else if (e.key === 'Enter' || e.code === 'Enter') {
       startBtn.click();
-    } else if(e.key === 'Delete') {
-        timer.value = isDeleteValue(timer.value);
-        if (timer.value === '00:00') {
-          inputClearBtn.disabled = true;
-          inputAllClearBtn.disabled = true;
-        } else {
-          inputClearBtn.disabled = false;
-          inputAllClearBtn.disabled = false;
-      }
-    }  else {
+    } else if (e.key === 'Backspace' || e.code === 'Backspace') {
       e.preventDefault();
-      if (!(e.key === 'Control') && !(e.key === 'Shift') && !(e.key === 'Alt') && !(e.key === 'Meta')) {
+      isDeleteValue(timer.value);
+      if (timer.value === '00:00') {
+        inputClearBtn.disabled = true;
+        inputAllClearBtn.disabled = true;
+      } else {
+        inputClearBtn.disabled = false;
+        inputAllClearBtn.disabled = false;
+      }
+    } else {
+      e.preventDefault();
+      if ((!(e.key === 'Control') && !(e.key === 'Shift') && !(e.key === 'Alt') && !(e.key === 'Meta')) || (!(e.key === 'Control') && !(e.key === 'Shift') && !(e.key === 'Alt') && !(e.key === 'Meta'))) {
         isAlertTyping(true, '※数字以外の文字は入力できません。');
       }
     }
@@ -361,11 +369,15 @@
         inputClearBtn.disabled = false;
         inputAllClearBtn.disabled = false;
       }
+      stopBtn.disabled = true;
+      resetBtn.disabled = true;
+      stopBtn.classList.add('hide');
+      resetBtn.classList.add('hide');
     });
   }
   // ----------------------------
   inputClearBtn.addEventListener('click', () => {
-    timer.value = isDeleteValue(timer.value);
+    isDeleteValue(timer.value);
     if (timer.value === '00:00') {
       inputClearBtn.disabled = true;
       inputAllClearBtn.disabled = true;
