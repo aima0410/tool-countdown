@@ -40,7 +40,7 @@
       setTimeout(
         (() => {
           mask.classList.remove('hide');
-          maskCloseBtn.addEventListener('click',()=>{
+          maskCloseBtn.addEventListener('click', () => {
             mask.classList.add('hide');
           });
         }), 400);
@@ -133,6 +133,18 @@
         const alert = document.querySelector('#alert');
         alert.remove();
       }
+    }
+  }
+  // ----------------------------
+  function irregularValue(target){
+    if(target.length > 5){
+      return true; // 異常あり
+    } else if(target[0] === ':' || target[1] === ':' || target[3] === ':' || target[4] === ':') {
+      return true;
+    } else if(target === 'undef' || target === 'NaN:N'){
+      return true;
+    } else {
+      return false; // 異常なし
     }
   }
   // ----------------------------
@@ -282,6 +294,12 @@
   // 【手順】
   // ①カウントダウンの終了時刻を求める（開始時刻＋カウントダウンタイム）
   startBtn.addEventListener('click', () => {
+    // スマホのキーボード全角入力の全角数字のみ何故か弾けずエラーが生じてしまうのでその対策。
+    if (irregularValue(timer.value)) {
+      timer.value = '00:00';
+      isAlertTyping(true, '半角数字でもう一度入力し直して下さい。');
+      return;
+    }
     const tmp = isSetTimer();
     nowTime = new Date().getTime();
     endTime = new Date().getTime() + isSetTimer();
