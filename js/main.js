@@ -431,26 +431,6 @@
     }
     lastTouchEnd = now;
   });
-  for (let i = 0; i < inputBtns.length; i++) {
-    inputBtns[i].addEventListener('touchend', function (event) {
-      let lastTouchEnd;
-      let now = new Date().getTime();
-      if (now - lastTouchEnd <= 300) {
-        event.preventDefault();
-      }
-      lastTouchEnd = now;
-    });
-  }
-  for (let i = 0; i < doBtns.length; i++) {
-    doBtns[i].addEventListener('touchend', function (event) {
-      let lastTouchEnd;
-      let now = new Date().getTime();
-      if (now - lastTouchEnd <= 300) {
-        event.preventDefault();
-      }
-      lastTouchEnd = now;
-    });
-  }
   // ============================= 処理の宣言 ============================
   window.addEventListener('load', () => {
     if (timer.value === '00:00') {
