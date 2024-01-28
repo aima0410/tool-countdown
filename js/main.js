@@ -52,9 +52,20 @@
     }
     countDown += 700;
     const totalSeconds = Math.floor(countDown / 1000);
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds % 60;
-    const minutesText = String(minutes).padStart(2, '0');
+    let minutes;
+    let seconds;
+    let minutesText;
+    if(totalSeconds >= (100 * 60)){
+      // カウントダウンが100分以上の場合
+      minutes = 99;
+      seconds = (totalSeconds % 60) + 60;
+      minutesText = String(minutes);
+    } else {
+      // カウントダウンが100分未満の場合
+      minutes = Math.floor(totalSeconds / 60);
+      seconds = totalSeconds % 60;
+      minutesText = String(minutes).padStart(2, '0');
+    }
     const secondsText = String(seconds).padStart(2, '0');
     timer.value = `${minutesText + ':' + secondsText}`;
   }
@@ -148,6 +159,14 @@
       return true;
     } else {
       return false; // 異常なし
+    }
+  }
+  // ----------------------------
+  function overHundredMinute(t){
+    if((t[0] === '9' && t[1] === '9') && (Number(t[3]) >= 6)){
+      return true;
+    } else {
+      return false;
     }
   }
   // ----------------------------
@@ -300,7 +319,7 @@
     // スマホのキーボード全角入力の全角数字のみ何故か弾けずエラーが生じてしまうのでその対策。
     if (irregularValue(timer.value)) {
       timer.value = '00:00';
-      isAlertTyping(true, '半角数字でもう一度入力し直して下さい。');
+      isAlertTyping(true, 'もう一度半角数字で入力し直して下さい。');
       return;
     }
     const tmp = isSetTimer();
@@ -329,9 +348,20 @@
       } else {
         s = tmp / 1000;
       }
-      const minutes = Math.floor(s / 60);
-      const seconds = s % 60;
-      const minutesText = String(minutes).padStart(2, '0');
+      let minutes;
+      let seconds;
+      let minutesText;
+      if(s >= (100 * 60)){
+        // 最初にセットしたタイマーが100分を超える場合
+        minutes = 99;
+        seconds = (s % 60) + 60;
+        minutesText = String(minutes);
+      } else {
+        // 最初にセットしたタイマーが100分未満に収まる場合
+        minutes = Math.floor(s / 60);
+        seconds = s % 60;
+        minutesText = String(minutes).padStart(2, '0');
+      }
       const secondsText = String(seconds).padStart(2, '0');
       timer.value = `${minutesText + ':' + secondsText}`;
       startBtn.disabled = false;
@@ -376,9 +406,20 @@
     }
     if (!(timer.dataset.savetime === '0')) {
       const s = Number(timer.dataset.savetime) / 1000;
-      const minutes = Math.floor(s / 60);
-      const seconds = s % 60;
-      const minutesText = String(minutes).padStart(2, '0');
+      let minutes;
+      let seconds;
+      let minutesText;
+      if(s >= (100 * 60)){
+        // 設定されたタイマーが100分を超える場合
+        minutes = 99;
+        seconds = (s % 60) + 60;
+        minutesText = String(minutes);
+      } else { 
+        // 設定されたタイマーが100分未満に収まる場合
+        minutes = Math.floor(s / 60);
+        seconds = s % 60;
+        minutesText = String(minutes).padStart(2, '0');
+      }
       const secondsText = String(seconds).padStart(2, '0');
       timer.value = `${minutesText + ':' + secondsText}`;
     }

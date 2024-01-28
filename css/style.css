@@ -271,21 +271,11 @@ main{
 @media screen and (max-width:374px) {
   #timer{
     width:90%;
-    font-size:70px;
+    font-size:55px;
   }
   #timer:disabled{
     width:90%;
-    font-size:70px;
-  }
-}
-@media screen and (max-width:374px) {
-  #timer{
-    width:90%;
-    font-size:60px;
-  }
-  #timer:disabled{
-    width:90%;
-    font-size:60px;
+    font-size:55px;
   }
 }
 @media screen and (max-width:333px) {
