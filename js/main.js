@@ -496,4 +496,3 @@
 // viewportごとに処理を変えたいときに使える↓↓
 // const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
 // if (viewportWidth < 500) { }
-

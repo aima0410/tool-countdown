@@ -19,7 +19,7 @@ main{
   background-color:#fff;
   box-shadow:  9px 9px 15px #a4c9ba,-5px -5px 8px #afdfcd;
   border-radius:10px;
-  margin:0 auto;
+  margin:0 auto 50px;
 }
 #timer{
   /* カーソルを透明化して非表示 */
@@ -228,6 +228,27 @@ main{
   box-shadow:none;
   transform:translateY(2px);
 }
+#explaination{
+  display:grid;
+  place-items:center;
+  width:500px;
+  padding:50px 0 60px;
+  background-color:#ffffff;
+  border:solid 2px black;
+  border-radius:10px;
+  margin:0 auto;
+}
+#explaination li {
+  color:#4c4c4c;
+  font-size:10px;
+  line-height:1.7em;
+}
+#explaination__deco{
+  opacity:0.9;
+  max-width:300px;
+  width:100%;
+  margin-bottom:20px;
+}
 /* ーーーーーーーーーーーーーーーー */
 @media screen and (max-width:530px) {
   #timer-field{
@@ -256,6 +277,17 @@ main{
   }
   #message{
     font-size:9px;
+  }
+  #explaination{
+    max-width:500px;
+    width:90%;
+    padding:35px 0;
+  }
+  #explaination ul{
+    width:80%;
+  }
+  #explaination__deco{
+    width:80%;
   }
 }
 @media screen and (max-width:412px) {
