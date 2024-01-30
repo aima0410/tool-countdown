@@ -121,6 +121,7 @@ main{
   border:solid 2px #7eb8a9;
   color:#7eb8a9;
   background-color:#fff;
+  margin-bottom:20px;
 }
 #stop-btn:hover,
 #reset-btn:hover{
@@ -137,6 +138,7 @@ main{
   visibility:hidden;
   opacity:0;
   margin-top:-50px;
+  margin-bottom:0;
 }
 #input-field{
   display:flex;
@@ -228,6 +230,7 @@ main{
   box-shadow:none;
   transform:translateY(2px);
 }
+/* ーーーーーーーーーーーーーーーー */
 #explaination{
   display:grid;
   place-items:center;
@@ -239,7 +242,7 @@ main{
   margin:0 auto;
 }
 #explaination li {
-  color:#4c4c4c;
+  color:black;
   font-size:10px;
   line-height:1.7em;
 }
@@ -272,8 +275,16 @@ main{
     font-size:20px;
   }
   #start-btn{
-    margin-bottom:10px;
+    margin-bottom:15px;
     font-size:25px;
+  }
+  #stop-btn,
+  #reset-btn{
+    margin-bottom:15px;
+  }
+  #stop-btn:disabled.hide,
+  #reset-btn:disabled.hide {
+    margin-bottom:0;
   }
   #message{
     font-size:9px;
