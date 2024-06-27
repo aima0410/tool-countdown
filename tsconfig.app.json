@@ -21,7 +21,15 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* import alias */
+    "baseUrl": "./",
+    "paths": {
+      "@components/*": ["src/components/*"]
+    },
+
+    "types": ["vitest/globals"]
   },
-  "include": ["src"]
+  "include": ["src", "vitest-setup.ts"] /* 作成したvitest用の設定ファイルを追加 */
 }

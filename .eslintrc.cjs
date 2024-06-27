@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
@@ -14,5 +15,6 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    "react/react-in-jsx-scope": "off", // 古い設定 React v17以降では不要なルール
   },
 }
