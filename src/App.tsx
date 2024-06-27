@@ -9,6 +9,7 @@ function App() {
 	return (
 		<>
 			<div>
+				<h1>HELLO</h1>
 				<a href="https://vitejs.dev" target="_blank" rel="noreferrer">
 					<img src={viteLogo} className="logo" alt="Vite logo" />
 				</a>
