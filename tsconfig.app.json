@@ -26,7 +26,8 @@
 		/* import alias */
 		"baseUrl": "./",
 		"paths": {
-			"@components/*": ["src/components/*"]
+			"@components/*": ["src/components/*"],
+			"App": ["src/pages/App.tsx"]
 		},
 
 		"types": ["vitest/globals"]
