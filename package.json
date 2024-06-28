@@ -11,8 +11,7 @@
     "format": "prettier . --write",
     "preview": "vite preview",
     "test": "vitest watch",
-    "coverage": "vitest run --coverage",
-    "build-storybook": "storybook build"
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@eslint/config-array": "^0.17.0",
