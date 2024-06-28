@@ -1,15 +1,12 @@
 interface Props {
-	e: React.ChangeEvent<HTMLInputElement>;
+  e: React.KeyboardEvent<HTMLInputElement>;
 	timer: string;
 	setTimer: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function createTimerValue({ e, timer, setTimer }: Props) {
 	// 00_入力値の受け取り
-	const prevValue = e.target.value; // 00:003 のような値を取得
-	let value = prevValue.split(''); // prevValueを配列化
-	value = value.slice(-1); // 一番最後の値だけ取得
-	const newValue = value[0]; // 配列から値だけ抜き出してコピー
+	const newValue = e.key;
 
 	// 01_配列化したstete変数を取得　※文字列はイミュータブル
 	const array = timer.split('');
@@ -29,6 +26,6 @@ export default function createTimerValue({ e, timer, setTimer }: Props) {
 	// 06_配列を文字列に戻す
 	const newTimerValue = array.join('');
 
-	// stateのセット関数に新しいタイマーをセット
+	// 07_stateのセット関数に新しいタイマーをセット
 	setTimer(newTimerValue);
 }
