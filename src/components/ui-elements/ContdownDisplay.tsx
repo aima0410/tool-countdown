@@ -23,10 +23,10 @@ export default function CountdownDisplay() {
 					value={timer}
 					type="text"
 					pattern="[0-9:]*"
-					maxLength={5}
+					maxLength={6}
 					inputMode="numeric"
 					onChange={e => {
-						createTimerValue({ e, setTimer });
+						createTimerValue({ e, timer, setTimer });
 					}}
 					onBlur={() => {
 						setShowInput(false);
