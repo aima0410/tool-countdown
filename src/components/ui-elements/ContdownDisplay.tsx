@@ -30,7 +30,7 @@ export default function CountdownDisplay() {
             // バリデーションを設定したい
             // 「0-9」と「Backspace」と「Enter」だけ受け取り、他は弾く。
 						console.log(e.key);
-            createTimerValue({ e, timer, setTimer });
+            createTimerValue({ e, inputRef, timer, setTimer });
 					}}
 					onBlur={() => {
 						setShowInput(false);
