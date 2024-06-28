@@ -11,17 +11,14 @@ export default [
 	pluginJs.configs.recommended,
 	...tseslint.configs.recommended,
 	pluginReactConfig,
-  {
-    plugins: {
-      react: pluginReact
-    },
-    settings: {
-      react: {
-        version: 'detect' // Reactのバージョンを自動検出
-      }
-    },
-    rules: {
-      'react/react-in-jsx-scope': 'off'
-    }
-  }
+	{
+		settings: {
+			react: {
+				version: 'detect', // Reactのバージョンを自動検出
+			},
+		},
+		rules: {
+			'react/react-in-jsx-scope': 'off',
+		},
+	},
 ];

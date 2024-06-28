@@ -25,12 +25,10 @@ export default function CountdownDisplay() {
 					pattern="[0-9:]*"
 					maxLength={5}
 					inputMode="numeric"
-          onChange={() => {}}
+					onChange={() => {}}
 					onKeyDown={e => {
-            // バリデーションを設定したい
-            // 「0-9」と「Backspace」と「Enter」だけ受け取り、他は弾く。
 						console.log(e.key);
-            createTimerValue({ e, inputRef, timer, setTimer });
+						createTimerValue({ e, inputRef, timer, setTimer });
 					}}
 					onBlur={() => {
 						setShowInput(false);

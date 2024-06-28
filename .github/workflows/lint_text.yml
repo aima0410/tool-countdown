@@ -12,7 +12,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: '20'
 
       - name: Install Dependencies
         run: npm ci
@@ -22,6 +22,5 @@ jobs:
 
       - name: Run Test
         run: npm run test
-
 # 「vite 静的ホスト」で検索。
 # push時に自動でテストとデプロイを走らせることができる。
