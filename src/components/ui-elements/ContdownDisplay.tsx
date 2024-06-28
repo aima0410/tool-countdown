@@ -7,6 +7,8 @@ export default function CountdownDisplay() {
       pattern="[0-9:]*"
       maxLength={5}
       inputMode="numeric"
+      onChange={() => {}}
+      name="countdown"
     />
   );
 }

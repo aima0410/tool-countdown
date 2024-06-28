@@ -1,8 +1,9 @@
 interface Props {
-  num: number;
+  num: number | null;
+  value: string | null;
   onClick: () => void;
 }
 
-export default function NumKey({ num, onClick }: Props) {
-  return <button onClick={onClick}>{num}</button>;
+export default function NumKey({ num, value, onClick }: Props) {
+  return <button onClick={onClick}>{num ?? value}</button>;
 }
