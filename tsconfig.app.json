@@ -26,6 +26,7 @@
 		/* import alias */
 		"baseUrl": "./",
 		"paths": {
+			"@assets/*": ["src/assets/*"],
 			"@components/*": ["src/components/*"],
 			"@layouts/*": ["src/components/layouts/*"],
 			"@ui-elements/*": ["src/components/ui-elements/*"],
