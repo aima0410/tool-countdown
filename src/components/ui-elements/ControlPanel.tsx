@@ -4,6 +4,9 @@ import ControlButton from '@ui-parts/ControlButton';
 type TimerStatus = 'StandbyMode' | 'InputMode' | 'ErrorMode' | 'PlayMode' | 'StopMode';
 
 interface Props {
+	updateTimerState: (newTimerValue: string | undefined) => void;
+	initialTimer: string;
+	saveInitialTimer: () => void;
 	status: TimerStatus;
 	switchStatusState: (newMode: TimerStatus) => void;
 }
@@ -18,16 +21,18 @@ const ControlButtonsStatus = {
 	StopMode: { start: false, stop: true, reset: false },
 };
 
-export default function ControlPanel({ status, switchStatusState }: Props) {
+export default function ControlPanel({ updateTimerState, initialTimer, saveInitialTimer, status, switchStatusState }: Props) {
 	const isInactive = ControlButtonsStatus[status];
 
 	const handleClickStart = () => {
+		status !== 'StopMode' && saveInitialTimer();
 		switchStatusState('PlayMode');
 	};
 	const handleClickStop = () => {
 		switchStatusState('StopMode');
 	};
 	const handleClickReset = () => {
+		updateTimerState(initialTimer);
 		switchStatusState('StandbyMode');
 	};
 
