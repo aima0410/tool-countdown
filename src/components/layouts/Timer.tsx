@@ -4,7 +4,7 @@ import CountdownDisplay from '@ui-elements/ContdownDisplay';
 import ControlPanel from '@ui-elements/ControlPanel';
 import NumPad from '@ui-elements/NumPad';
 
-type TimerStatus = 'StandbyMode' | 'InputMode' | 'ErrorMode' |'PlayMode' | 'StopMode';
+type TimerStatus = 'StandbyMode' | 'InputMode' | 'ErrorMode' | 'PlayMode' | 'StopMode';
 
 export default function Timer() {
 	const [timer, setTimer] = useState('00:00');
@@ -27,7 +27,12 @@ export default function Timer() {
 				switchStatusState={switchStatusState}
 			/>
 			<ControlPanel status={status} switchStatusState={switchStatusState} />
-			<NumPad timer={timer} updateTimerState={updateTimerState} />
+			<NumPad
+				timer={timer}
+				updateTimerState={updateTimerState}
+				status={status}
+				switchStatusState={switchStatusState}
+			/>
 		</section>
 	);
 }

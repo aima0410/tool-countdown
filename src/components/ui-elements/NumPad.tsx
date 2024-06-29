@@ -1,40 +1,51 @@
-import { useState } from 'react';
 // ---- utils ----
 import { createTimerValueFromNumPad } from '@utils/createTimerValueUtils';
 // ---- Components ----
 import NumKey from '@ui-parts/NumKey';
 
+const PadKeysStatus = {
+	StandbyMode: { numKeys: false, funcKeys: true },
+	InputMode: { numKeys: false, funcKeys: true },
+	ErrorMode: { numKeys: false, funcKeys: true },
+	PlayMode: { numKeys: true, funcKeys: true },
+	StopMode: { numKeys: false, funcKeys: true },
+};
+
+type TimerStatus = 'StandbyMode' | 'InputMode' | 'ErrorMode' | 'PlayMode' | 'StopMode';
+
 interface Props {
 	timer: string;
 	updateTimerState: (newTimerValue: string) => void;
+	status: TimerStatus;
+	switchStatusState: (newMode: TimerStatus) => void;
 }
 
-export default function NumPad({ timer, updateTimerState }: Props) {
-	const [isInactiveNumKeys, setIsInactiveNumKeys] = useState({
-		numKeys: false,
-		funcKeys: true,
-	});
+export default function NumPad({ timer, updateTimerState, status, switchStatusState }: Props) {
+	if (timer !== '00:00') {
+		PadKeysStatus[status].funcKeys = false;
+	} else {
+		PadKeysStatus[status].funcKeys = true;
+	}
+	const isInactive = PadKeysStatus[status];
 
 	const handleClick = (key: string) => {
-		let value: string = timer;
-		if (key === 'AC') {
-			value = '00:00';
-		} else {
-			value = createTimerValueFromNumPad(value, key);
+		// 01_NumKeyの入力値から新しいタイマーを作成
+		{
+			let value: string = timer;
+			if (key === 'AC') {
+				value = '00:00';
+			} else {
+				value = createTimerValueFromNumPad(value, key);
+			}
+			const newTimerValue = value;
+			updateTimerState(newTimerValue);
 		}
-		const newTimerValue = value;
-		updateTimerState(newTimerValue);
-		updateIsInactiveState(newTimerValue);
-	};
-
-	const updateIsInactiveState = (newTimerValue: string) => {
-		// NumPadのdisabled属性の状態を管理しているstate変数を新しいオブジェクトとしてコピー
-		const nextIsinactiveNumKeysState = { ...isInactiveNumKeys };
-		// 更新後のタイマーが"00:00"ならファンクションキーはdisabledに。
-		const isInactiveFuncKeys = newTimerValue === '00:00';
-		nextIsinactiveNumKeysState.funcKeys = isInactiveFuncKeys;
-		// NumPadの新しいdisabled属性の状態をセット
-		setIsInactiveNumKeys(nextIsinactiveNumKeysState);
+		// 02_StatusをStandbyModeに変更
+		{
+			if (status !== 'StandbyMode') {
+				switchStatusState('StandbyMode');
+			}
+		}
 	};
 
 	return (
@@ -46,7 +57,7 @@ export default function NumPad({ timer, updateTimerState }: Props) {
 					onClick={() => {
 						handleClick(String(1));
 					}}
-					isInactive={isInactiveNumKeys}
+					isInactive={isInactive}
 				/>
 				<NumKey
 					num={2}
@@ -54,7 +65,7 @@ export default function NumPad({ timer, updateTimerState }: Props) {
 					onClick={() => {
 						handleClick(String(2));
 					}}
-					isInactive={isInactiveNumKeys}
+					isInactive={isInactive}
 				/>
 				<NumKey
 					num={3}
@@ -62,7 +73,7 @@ export default function NumPad({ timer, updateTimerState }: Props) {
 					onClick={() => {
 						handleClick(String(3));
 					}}
-					isInactive={isInactiveNumKeys}
+					isInactive={isInactive}
 				/>
 			</div>
 			<div>
@@ -72,7 +83,7 @@ export default function NumPad({ timer, updateTimerState }: Props) {
 					onClick={() => {
 						handleClick(String(4));
 					}}
-					isInactive={isInactiveNumKeys}
+					isInactive={isInactive}
 				/>
 				<NumKey
 					num={5}
@@ -80,7 +91,7 @@ export default function NumPad({ timer, updateTimerState }: Props) {
 					onClick={() => {
 						handleClick(String(5));
 					}}
-					isInactive={isInactiveNumKeys}
+					isInactive={isInactive}
 				/>
 				<NumKey
 					num={6}
@@ -88,7 +99,7 @@ export default function NumPad({ timer, updateTimerState }: Props) {
 					onClick={() => {
 						handleClick(String(6));
 					}}
-					isInactive={isInactiveNumKeys}
+					isInactive={isInactive}
 				/>
 			</div>
 			<div>
@@ -98,7 +109,7 @@ export default function NumPad({ timer, updateTimerState }: Props) {
 					onClick={() => {
 						handleClick(String(7));
 					}}
-					isInactive={isInactiveNumKeys}
+					isInactive={isInactive}
 				/>
 				<NumKey
 					num={8}
@@ -106,7 +117,7 @@ export default function NumPad({ timer, updateTimerState }: Props) {
 					onClick={() => {
 						handleClick(String(8));
 					}}
-					isInactive={isInactiveNumKeys}
+					isInactive={isInactive}
 				/>
 				<NumKey
 					num={9}
@@ -114,7 +125,7 @@ export default function NumPad({ timer, updateTimerState }: Props) {
 					onClick={() => {
 						handleClick(String(9));
 					}}
-					isInactive={isInactiveNumKeys}
+					isInactive={isInactive}
 				/>
 			</div>
 			<div>
@@ -124,7 +135,7 @@ export default function NumPad({ timer, updateTimerState }: Props) {
 					onClick={() => {
 						handleClick('C');
 					}}
-					isInactive={isInactiveNumKeys}
+					isInactive={isInactive}
 				/>
 				<NumKey
 					num={0}
@@ -132,7 +143,7 @@ export default function NumPad({ timer, updateTimerState }: Props) {
 					onClick={() => {
 						handleClick(String(0));
 					}}
-					isInactive={isInactiveNumKeys}
+					isInactive={isInactive}
 				/>
 				<NumKey
 					num={null}
@@ -140,7 +151,7 @@ export default function NumPad({ timer, updateTimerState }: Props) {
 					onClick={() => {
 						handleClick('AC');
 					}}
-					isInactive={isInactiveNumKeys}
+					isInactive={isInactive}
 				/>
 			</div>
 		</fieldset>

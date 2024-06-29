@@ -11,7 +11,12 @@ interface Props {
 	switchStatusState: (newMode: TimerStatus) => void;
 }
 
-export default function CountdownDisplay({ timer, updateTimerState, status, switchStatusState }: Props) {
+export default function CountdownDisplay({
+	timer,
+	updateTimerState,
+	status,
+	switchStatusState,
+}: Props) {
 	const [showInput, setShowInput] = useState(false);
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -55,7 +60,7 @@ export default function CountdownDisplay({ timer, updateTimerState, status, swit
 			) : (
 				<p
 					onClick={() => {
-						if(status === 'StandbyMode' || status === 'StopMode'){
+						if (status === 'StandbyMode' || status === 'StopMode') {
 							setShowInput(true);
 						}
 					}}

@@ -10,7 +10,7 @@ interface Props {
 
 // ControlPanelのボタンのdisabled属性のboolean値（モード毎に管理）
 const standardMode = { start: false, stop: true, reset: true };
-const ControlButtonStatus = {
+const ControlButtonsStatus = {
 	StandbyMode: standardMode,
 	InputMode: standardMode,
 	ErrorMode: standardMode,
@@ -19,7 +19,7 @@ const ControlButtonStatus = {
 };
 
 export default function ControlPanel({ status, switchStatusState }: Props) {
-	const isInactive = ControlButtonStatus[status];
+	const isInactive = ControlButtonsStatus[status];
 
 	const handleClickStart = () => {
 		switchStatusState('PlayMode');
