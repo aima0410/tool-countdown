@@ -1,17 +1,14 @@
 // ---- utils ----
 import { createTimerValueFromNumPad } from '@utils/createTimerValueUtils';
 // ---- Components ----
-import NumKey from '@ui-parts/NumKey';
-
-const PadKeysStatus = {
-	StandbyMode: { numKeys: false, funcKeys: true },
-	InputMode: { numKeys: false, funcKeys: true },
-	ErrorMode: { numKeys: false, funcKeys: true },
-	PlayMode: { numKeys: true, funcKeys: true },
-	StopMode: { numKeys: false, funcKeys: true },
-};
+import PadKey from '@ui-parts/PadKey';
 
 type TimerStatus = 'StandbyMode' | 'InputMode' | 'ErrorMode' | 'PlayMode' | 'StopMode';
+
+type PadKeys = {
+	num: number | null;
+	value: 'AC' | 'C' | null;
+};
 
 interface Props {
 	timer: string;
@@ -21,139 +18,63 @@ interface Props {
 }
 
 export default function NumPad({ timer, updateTimerState, status, switchStatusState }: Props) {
-	if (timer !== '00:00') {
-		PadKeysStatus[status].funcKeys = false;
-	} else {
-		PadKeysStatus[status].funcKeys = true;
-	}
-	const isInactive = PadKeysStatus[status];
+	const isInactive = {
+		numKeys: status === 'PlayMode',
+		funcKeys: status === 'PlayMode' || timer === '00:00',
+	};
 
 	const handleClick = (key: string) => {
 		// 01_NumKeyの入力値から新しいタイマーを作成
 		{
-			let value: string = timer;
-			if (key === 'AC') {
-				value = '00:00';
-			} else {
-				value = createTimerValueFromNumPad(value, key);
-			}
-			const newTimerValue = value;
+			// 「AC」かそれ以外かで条件分岐 → 新規タイマー作成
+			const newTimerValue = key === 'AC' ? '00:00' : createTimerValueFromNumPad(timer, key);
+			// 新しいタイマーをセット
 			updateTimerState(newTimerValue);
 		}
 		// 02_StatusをStandbyModeに変更
 		{
-			if (status !== 'StandbyMode') {
-				switchStatusState('StandbyMode');
-			}
+			if (status !== 'StandbyMode') switchStatusState('StandbyMode');
 		}
 	};
 
+	const renderPadKey = ({ num, value }: PadKeys) => (
+		<PadKey
+			num={num}
+			value={value}
+			onClick={() => handleClick(value || String(num))}
+			isInactive={isInactive}
+		/>
+	);
+
+	const numPadKeys: PadKeys[][] = [
+		// PadKey型オブジェクトの配列の配列
+		[
+			{ num: 1, value: null },
+			{ num: 2, value: null },
+			{ num: 3, value: null },
+		],
+		[
+			{ num: 4, value: null },
+			{ num: 5, value: null },
+			{ num: 6, value: null },
+		],
+		[
+			{ num: 7, value: null },
+			{ num: 8, value: null },
+			{ num: 9, value: null },
+		],
+		[
+			{ num: null, value: 'C' },
+			{ num: 0, value: null },
+			{ num: null, value: 'AC' },
+		],
+	] as const; // 不変の配列、読み取り専用
+
 	return (
 		<fieldset>
-			<div>
-				<NumKey
-					num={1}
-					value={null}
-					onClick={() => {
-						handleClick(String(1));
-					}}
-					isInactive={isInactive}
-				/>
-				<NumKey
-					num={2}
-					value={null}
-					onClick={() => {
-						handleClick(String(2));
-					}}
-					isInactive={isInactive}
-				/>
-				<NumKey
-					num={3}
-					value={null}
-					onClick={() => {
-						handleClick(String(3));
-					}}
-					isInactive={isInactive}
-				/>
-			</div>
-			<div>
-				<NumKey
-					num={4}
-					value={null}
-					onClick={() => {
-						handleClick(String(4));
-					}}
-					isInactive={isInactive}
-				/>
-				<NumKey
-					num={5}
-					value={null}
-					onClick={() => {
-						handleClick(String(5));
-					}}
-					isInactive={isInactive}
-				/>
-				<NumKey
-					num={6}
-					value={null}
-					onClick={() => {
-						handleClick(String(6));
-					}}
-					isInactive={isInactive}
-				/>
-			</div>
-			<div>
-				<NumKey
-					num={7}
-					value={null}
-					onClick={() => {
-						handleClick(String(7));
-					}}
-					isInactive={isInactive}
-				/>
-				<NumKey
-					num={8}
-					value={null}
-					onClick={() => {
-						handleClick(String(8));
-					}}
-					isInactive={isInactive}
-				/>
-				<NumKey
-					num={9}
-					value={null}
-					onClick={() => {
-						handleClick(String(9));
-					}}
-					isInactive={isInactive}
-				/>
-			</div>
-			<div>
-				<NumKey
-					num={null}
-					value="C"
-					onClick={() => {
-						handleClick('C');
-					}}
-					isInactive={isInactive}
-				/>
-				<NumKey
-					num={0}
-					value={null}
-					onClick={() => {
-						handleClick(String(0));
-					}}
-					isInactive={isInactive}
-				/>
-				<NumKey
-					num={null}
-					value="AC"
-					onClick={() => {
-						handleClick('AC');
-					}}
-					isInactive={isInactive}
-				/>
-			</div>
+			{numPadKeys.map((padRow, i) => (
+				<div key={i}>{padRow.map(key => renderPadKey({ num: key.num, value: key.value }))}</div>
+			))}
 		</fieldset>
 	);
 }

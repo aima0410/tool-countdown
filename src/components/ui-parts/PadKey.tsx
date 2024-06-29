@@ -8,7 +8,7 @@ interface Props {
 	};
 }
 
-export default function NumKey({ num, value, onClick, isInactive }: Props) {
+export default function PadKey({ num, value, onClick, isInactive }: Props) {
 	const isDisabled = value ? isInactive.funcKeys : isInactive.numKeys;
 
 	return (

@@ -49,10 +49,10 @@ export function createTimerValueFromInput({
 	}
 }
 
-export function createTimerValueFromNumPad(value: string, key: string) {
+export function createTimerValueFromNumPad(timer: string, key: string) {
 	// keyが「C」だった場合はdeleteする
 	const isDelete = key === 'C';
-	const prevTimerValue = value;
+	const prevTimerValue = timer;
 	const newTimerValue = createTimerValue({ prevTimerValue, key, isDelete });
 	return newTimerValue;
 }
