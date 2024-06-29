@@ -1,10 +1,14 @@
 import { useState, useRef, useEffect } from 'react';
 // ---- utiles ----
-import createTimerValue from '@utils/createTimerValue';
+import { createTimerValueFromInput } from '@utils/createTimerValueUtils';
 
-export default function CountdownDisplay() {
+interface Props {
+	timer: string;
+	updateTimerValue: (newTimerValue: string) => void;
+}
+
+export default function CountdownDisplay({ timer, updateTimerValue }: Props) {
 	const [showInput, setShowInput] = useState(false);
-	const [timer, setTimer] = useState('00:00');
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	useEffect(() => {
@@ -27,8 +31,8 @@ export default function CountdownDisplay() {
 					inputMode="numeric"
 					onChange={() => {}}
 					onKeyDown={e => {
-						console.log(e.key);
-						createTimerValue({ e, inputRef, timer, setTimer });
+						const newTimerValue = createTimerValueFromInput({ e, inputRef, timer });
+						updateTimerValue(newTimerValue ?? '00:00');
 					}}
 					onBlur={() => {
 						setShowInput(false);
