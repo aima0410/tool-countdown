@@ -14,14 +14,14 @@ export default function Timer() {
 		setTimer(newTimerValue ?? '00:00');
 	};
 
-	const updateStatusState = (newMode: TimerStatus) => {
+	const switchStatusState = (newMode: TimerStatus) => {
 		setStatus(newMode);
 	};
 
 	return (
 		<section>
 			<CountdownDisplay timer={timer} updateTimerState={updateTimerState} />
-			<ControlPanel updateStatusState={updateStatusState} />
+			<ControlPanel switchStatusState={switchStatusState} />
 			<NumPad timer={timer} updateTimerState={updateTimerState} />
 		</section>
 	);

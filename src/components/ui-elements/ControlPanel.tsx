@@ -5,23 +5,23 @@ import ControlButton from '@ui-parts/ControlButton';
 type TimerStatus = 'StandbyMode' | 'InputMode' | 'PlayMode' | 'StopMode';
 
 interface Props {
-	updateStatusState: (newMode: TimerStatus) => void;
+	switchStatusState: (newMode: TimerStatus) => void;
 }
 
-export default function ControlPanel({ updateStatusState }: Props) {
+export default function ControlPanel({ switchStatusState }: Props) {
 	const [isInactives, setIsInactives] = useState({ start: false, stop: true, reset: true });
 
 	const handleClickStart = () => {
 		setIsInactives({ start: true, stop: false, reset: true });
-		updateStatusState('PlayMode');
+		switchStatusState('PlayMode');
 	};
 	const handleClickStop = () => {
 		setIsInactives({ start: false, stop: true, reset: false });
-		updateStatusState('StopMode');
+		switchStatusState('StopMode');
 	};
 	const handleClickReset = () => {
 		setIsInactives({ start: false, stop: true, reset: true });
-		updateStatusState('StandbyMode');
+		switchStatusState('StandbyMode');
 	};
 
 	return (
