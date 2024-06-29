@@ -6,10 +6,10 @@ import NumKey from '@ui-parts/NumKey';
 
 interface Props {
 	timer: string;
-	updateTimerValue: (newTimerValue: string) => void;
+	updateTimerState: (newTimerValue: string) => void;
 }
 
-export default function NumPad({ timer, updateTimerValue }: Props) {
+export default function NumPad({ timer, updateTimerState }: Props) {
 	const [isInactiveNumKeys, setIsInactiveNumKeys] = useState({
 		numKeys: false,
 		funcKeys: true,
@@ -23,7 +23,7 @@ export default function NumPad({ timer, updateTimerValue }: Props) {
 			value = createTimerValueFromNumPad(value, key);
 		}
 		const newTimerValue = value;
-		updateTimerValue(newTimerValue);
+		updateTimerState(newTimerValue);
 		updateIsInactiveState(newTimerValue);
 	};
 

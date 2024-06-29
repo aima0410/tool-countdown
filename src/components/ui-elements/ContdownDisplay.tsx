@@ -4,10 +4,10 @@ import { createTimerValueFromInput } from '@utils/createTimerValueUtils';
 
 interface Props {
 	timer: string;
-	updateTimerValue: (newTimerValue: string) => void;
+	updateTimerState: (newTimerValue: string) => void;
 }
 
-export default function CountdownDisplay({ timer, updateTimerValue }: Props) {
+export default function CountdownDisplay({ timer, updateTimerState }: Props) {
 	const [showInput, setShowInput] = useState(false);
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -32,7 +32,7 @@ export default function CountdownDisplay({ timer, updateTimerValue }: Props) {
 					onChange={() => {}}
 					onKeyDown={e => {
 						const newTimerValue = createTimerValueFromInput({ e, inputRef, timer });
-						updateTimerValue(newTimerValue);
+						updateTimerState(newTimerValue);
 					}}
 					onBlur={() => {
 						setShowInput(false);
