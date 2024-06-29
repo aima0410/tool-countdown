@@ -1,28 +1,43 @@
 import { isValidInputKey } from '@utils/validateUtils';
 
+type TimerStatus = 'StandbyMode' | 'InputMode' | 'ErrorMode' | 'PlayMode' | 'StopMode';
+
 interface Props {
 	e: React.KeyboardEvent<HTMLInputElement>;
 	inputRef: React.RefObject<HTMLInputElement>;
 	timer: string;
+	status: TimerStatus;
+	switchStatusState: (newMode: TimerStatus) => void;
 }
 
-export function createTimerValueFromInput({ e, inputRef, timer }: Props) {
+export function createTimerValueFromInput({
+	e,
+	inputRef,
+	timer,
+	status,
+	switchStatusState,
+}: Props) {
 	/* 00_バリデーションと早期リターン */
 	{
 		// 有効な入力じゃなかった場合は早期リターン
 		const isEarlyReturn = !isValidInputKey(e.key);
 		if (isEarlyReturn) {
 			e.preventDefault();
+			switchStatusState('ErrorMode');
 			return timer;
 		}
 		// Enterだった場合はフォーカスを外して早期リターン
 		if (e.key === 'Enter') {
 			inputRef.current?.blur();
+			switchStatusState('StandbyMode');
 			return timer;
 		}
 	}
-
-	/* 01_タイマーの値を作成してセットする */
+	// 01_ErrorModeだった場合はInputModeに切り替え
+	{
+		status === 'ErrorMode' && switchStatusState('InputMode');
+	}
+	/* 02_タイマーの値を作成してセットする */
 	{
 		// keyを取得
 		const key = e.key;
