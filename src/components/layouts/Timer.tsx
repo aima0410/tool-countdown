@@ -7,8 +7,8 @@ import NumPad from '@ui-elements/NumPad';
 export default function Timer() {
 	const [timer, setTimer] = useState('00:00');
 
-	const updateTimerValue = (newTimerValue: string) => {
-		setTimer(newTimerValue);
+	const updateTimerValue = (newTimerValue: string | undefined) => {
+		setTimer(newTimerValue ?? '00:00');
 	};
 
 	return (

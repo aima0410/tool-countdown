@@ -23,7 +23,7 @@ export default function NumPad({ timer, updateTimerValue }: Props) {
 			value = createTimerValueFromNumPad(value, key);
 		}
 		const newTimerValue = value;
-		updateTimerValue(newTimerValue ?? '00:00');
+		updateTimerValue(newTimerValue);
 		updateIsInactiveState(newTimerValue);
 	};
 

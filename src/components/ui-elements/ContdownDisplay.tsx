@@ -32,7 +32,7 @@ export default function CountdownDisplay({ timer, updateTimerValue }: Props) {
 					onChange={() => {}}
 					onKeyDown={e => {
 						const newTimerValue = createTimerValueFromInput({ e, inputRef, timer });
-						updateTimerValue(newTimerValue ?? '00:00');
+						updateTimerValue(newTimerValue);
 					}}
 					onBlur={() => {
 						setShowInput(false);
