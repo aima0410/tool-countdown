@@ -1,35 +1,60 @@
-import { useState } from 'react';
 // ---- Components ----
 import ControlButton from '@ui-parts/ControlButton';
 
-type TimerStatus = 'StandbyMode' | 'InputMode' | 'PlayMode' | 'StopMode';
+type TimerStatus = 'StandbyMode' | 'InputMode' | 'ErrorMode' | 'PlayMode' | 'StopMode';
 
 interface Props {
+	status: TimerStatus;
 	switchStatusState: (newMode: TimerStatus) => void;
 }
 
-export default function ControlPanel({ switchStatusState }: Props) {
-	const [isInactives, setIsInactives] = useState({ start: false, stop: true, reset: true });
+// ControlPanelのボタンのdisabled属性のboolean値（モード毎に管理）
+const standardMode = { start: false, stop: true, reset: true };
+const ControlButtonStatus = {
+	StandbyMode: standardMode,
+	InputMode: standardMode,
+	ErrorMode: standardMode,
+	PlayMode: { start: true, stop: false, reset: true },
+	StopMode: { start: false, stop: true, reset: false },
+};
+
+export default function ControlPanel({ status, switchStatusState }: Props) {
+	const isInactive = ControlButtonStatus[status];
 
 	const handleClickStart = () => {
-		setIsInactives({ start: true, stop: false, reset: true });
 		switchStatusState('PlayMode');
 	};
 	const handleClickStop = () => {
-		setIsInactives({ start: false, stop: true, reset: false });
 		switchStatusState('StopMode');
 	};
 	const handleClickReset = () => {
-		setIsInactives({ start: false, stop: true, reset: true });
 		switchStatusState('StandbyMode');
 	};
 
 	return (
 		<fieldset>
-			<ControlButton value="START" isInactive={isInactives.start} onClick={handleClickStart} />
+			<ControlButton
+				value="START"
+				isInactive={isInactive.start}
+				onClick={() => {
+					handleClickStart();
+				}}
+			/>
 			<div>
-				<ControlButton value="STOP" isInactive={isInactives.stop} onClick={handleClickStop} />
-				<ControlButton value="RESET" isInactive={isInactives.reset} onClick={handleClickReset} />
+				<ControlButton
+					value="STOP"
+					isInactive={isInactive.stop}
+					onClick={() => {
+						handleClickStop();
+					}}
+				/>
+				<ControlButton
+					value="RESET"
+					isInactive={isInactive.reset}
+					onClick={() => {
+						handleClickReset();
+					}}
+				/>
 			</div>
 		</fieldset>
 	);
