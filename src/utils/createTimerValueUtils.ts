@@ -58,6 +58,30 @@ export function createTimerValueFromNumPad(timer: string, key: string) {
 	return newTimerValue;
 }
 
+export function createTimerValueFromCountdown(timer: string) {
+	const m = Number(timer.substring(0, 2));
+	const s = Number(timer.slice(-2));
+
+	let newMinute;
+	let newSecond;
+
+	if (m >= 99 && s >= 60) {
+		newMinute = String(m);
+		newSecond = String(s - 1);
+	} else if (s >= 60) {
+		newMinute = String(m + 1).padStart(2, '0'); // 常に2桁
+		newSecond = String(s - 60 - 1).padStart(2, '0');
+	} else if (s === 0) {
+		newMinute = String(m - 1).padStart(2, '0');
+		newSecond = String(59);
+	} else {
+		newMinute = String(m).padStart(2, '0');
+		newSecond = String(s - 1).padStart(2, '0');
+	}
+
+	return newMinute + ':' + newSecond;
+}
+
 // =================== このファイル内でのみ使用する関数 ===================
 interface TimerUpdatePorps {
 	prevTimerValue: string;

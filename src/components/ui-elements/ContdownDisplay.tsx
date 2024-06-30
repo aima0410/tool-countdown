@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import TimerStatus from 'src/types/TimerStatus';
 // ---- utiles ----
 import { createTimerValueFromInput } from '@utils/createTimerValueUtils';
-
+import { createTimerValueFromCountdown } from '@utils/createTimerValueUtils';
 
 interface Props {
 	timer: string;
@@ -21,18 +21,36 @@ export default function CountdownDisplay({
 	const [showInput, setShowInput] = useState(false);
 	const inputRef = useRef<HTMLInputElement>(null);
 
+	// 自動フォーカスするための設定
 	useEffect(() => {
-		// 自動フォーカスするための設定
 		if (showInput && inputRef.current) {
 			inputRef.current.focus();
 		}
 	}, [showInput]);
 
-	if (status === 'PlayMode') {
-		const intervalId = setInterval(() => {
-			timer === '00:00' ? clearInterval(intervalId) : updateTimerState('00:00');
-		}, 1000);
-	}
+	// カウントダウン設定
+	useEffect(() => {
+		let intervalId: NodeJS.Timeout;
+		if (status === 'PlayMode') {
+			intervalId = setInterval(() => {
+				if (timer === '00:01' || timer === '00:00') {
+					clearInterval(intervalId);
+					switchStatusState('DoneMode');
+					updateTimerState('00:00');
+				} else {
+					console.log(timer);
+					const newTimerValue = createTimerValueFromCountdown(timer);
+					console.log(newTimerValue);
+					updateTimerState(newTimerValue);
+				}
+			}, 1000);
+		}
+		return () => {
+			if (intervalId) {
+				clearInterval(intervalId);
+			}
+		};
+	}, [status, timer]);
 
 	return (
 		<>
