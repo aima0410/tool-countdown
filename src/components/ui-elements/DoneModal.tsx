@@ -17,11 +17,11 @@ interface Props {
 export default function DoneModal({ updateTimerState, switchStatusState, initialTimer }: Props) {
 	const [isVisible, setIsVisible] = useState(false);
 
+	// モーダル表示をカウントダウン完了から500ms遅らせる処理
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			setIsVisible(true);
 		}, 500); // 500ms遅延
-
 		return () => clearTimeout(timer); // コンポーネントのアンマウント時にタイマーをクリア
 	}, []);
 
@@ -55,7 +55,7 @@ export default function DoneModal({ updateTimerState, switchStatusState, initial
 						display: block;
 						user-select: none;
 						width: 15%;
-						margin:0 auto 10px;
+						margin: 0 auto 10px;
 					`}
 				/>
 				<p

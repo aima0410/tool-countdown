@@ -13,7 +13,7 @@ const PadRowStyle = css`
 	flex-wrap: wrap;
 	justify-content: space-between;
 	width: 100%;
-	padding:0 20px;
+	padding: 0 20px;
 	border-radius: 10px;
 `;
 
@@ -41,6 +41,7 @@ export default function NumPad({ timer, updateTimerState, status, switchStatusSt
 		funcKeys: status === 'PlayMode' || timer === '00:00',
 	};
 
+	// PadKeyをクリックしたときのイベントハンドラ
 	const handleClick = (key: string) => {
 		// 01_NumKeyの入力値から新しいタイマーを作成
 		{
@@ -55,6 +56,7 @@ export default function NumPad({ timer, updateTimerState, status, switchStatusSt
 		}
 	};
 
+	// mapレンダーするPadKeyコンポーネントを定義
 	const renderPadKey = ({ num, value, id }: RenderPadKey) => (
 		<PadKey
 			num={num}
@@ -65,6 +67,7 @@ export default function NumPad({ timer, updateTimerState, status, switchStatusSt
 		/>
 	);
 
+	// mapレンダーする各PadKeyに持たせたいユニークな値を宣言
 	const numPadKeys: PadKeys[][] = [
 		// PadKey型オブジェクトの配列の配列
 		[

@@ -8,6 +8,7 @@ import '@fontsource-variable/noto-sans-jp'; // Supports weights 100-900
 // ---- KumaUI ----
 import { css } from '@kuma-ui/core';
 
+// ==== コンポーネント関数 ====
 export default function App() {
 	return (
 		<main

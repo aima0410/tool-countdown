@@ -9,16 +9,18 @@ interface Props {
 	status: TimerStatus;
 }
 
+// ==== コンポーネント関数 ====
 export default function Message({ timer, status }: Props) {
 	let message: string | null = null;
 	let color: string = '#689a8d';
 	let top: string = '1px';
 	if (status === 'InputMode') {
-		message = timer === '00:00' ? 'そのまま数字を入力して下さい。' : 'Enterでカウントダウンが始まります。';
+		message =
+			timer === '00:00' ? 'そのまま数字を入力して下さい。' : 'Enterでカウントダウンが始まります。';
 	} else if (status === 'ErrorMode') {
 		message = '有効な値を入力して下さい。';
 		color = 'rgb(248, 83, 83)';
-	} else if ( status === 'PlayMode' ) {
+	} else if (status === 'PlayMode') {
 		message = 'STOP を押すとカウントダウンを一時停止できます。';
 		top = '-8px';
 	} else if (status === 'StopMode') {

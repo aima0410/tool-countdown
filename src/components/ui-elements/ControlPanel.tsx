@@ -7,6 +7,7 @@ import DoneModal from '@components/ui-elements/DoneModal';
 // ---- KumaUI ----
 import { css } from '@kuma-ui/core';
 
+// ==== 型定義 ====
 interface Props {
 	timer: string;
 	updateTimerState: (newTimerValue: string | undefined) => void;
@@ -14,6 +15,7 @@ interface Props {
 	switchStatusState: (newMode: TimerStatus) => void;
 }
 
+// ==== データの宣言 ====
 // ControlPanelのボタンのdisabled属性のboolean値（モード毎に管理）
 const standardMode = { start: false, stop: true, reset: true };
 const ControlButtonsStatus = {
@@ -26,6 +28,7 @@ const ControlButtonsStatus = {
 	DoneMode: { start: true, stop: true, reset: true },
 };
 
+// ==== コンポーネント関数 ====
 export default function ControlPanel({
 	timer,
 	updateTimerState,
@@ -35,17 +38,21 @@ export default function ControlPanel({
 	const [initialTimer, setInitialTimer] = useState('00:00');
 	const isInactive = ControlButtonsStatus[status];
 
+	// セットしたタイマーの値を保存
 	const saveInitialTimer = () => {
 		setInitialTimer(timer);
 	};
 
+	// STARTボタンのイベントハンドラ関数
 	const handleClickStart = () => {
 		status !== 'StopMode' && saveInitialTimer();
 		switchStatusState('PlayMode');
 	};
+	// STOPボタンのイベントハンドラ関数
 	const handleClickStop = () => {
 		switchStatusState('StopMode');
 	};
+	// RESETボタンのイベントハンドラ関数
 	const handleClickReset = () => {
 		if (status === 'StopMode') {
 			updateTimerState(initialTimer);

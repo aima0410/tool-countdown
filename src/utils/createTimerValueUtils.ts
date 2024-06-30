@@ -1,8 +1,9 @@
+// ---- utils ----
 import { isValidInputKey } from '@utils/validateUtils';
 // ---- types ----
 import TimerStatus from 'src/types/TimerStatus';
 
-
+// ==== 型定義 ====
 interface Props {
 	e: React.KeyboardEvent<HTMLInputElement>;
 	inputRef: React.RefObject<HTMLInputElement>;
@@ -11,6 +12,14 @@ interface Props {
 	switchStatusState: (newMode: TimerStatus) => void;
 }
 
+interface TimerUpdatePorps {
+	prevTimerValue: string;
+	key: string;
+	isDelete: boolean;
+}
+
+// =================== 外部ファイルで使用する関数 ===================
+// ---- Input入力値からタイマーの新しい値を作成 ----
 export function createTimerValueFromInput({
 	e,
 	inputRef,
@@ -50,6 +59,7 @@ export function createTimerValueFromInput({
 	}
 }
 
+// ---- PadKeyの入力値からタイマーの新しい値を作成 ----
 export function createTimerValueFromNumPad(timer: string, key: string) {
 	// keyが「C」だった場合はdeleteする
 	const isDelete = key === 'C';
@@ -58,6 +68,7 @@ export function createTimerValueFromNumPad(timer: string, key: string) {
 	return newTimerValue;
 }
 
+// ---- カウントダウン時のタイマーの1秒後の値を作成 ----
 export function createTimerValueFromCountdown(timer: string) {
 	const m = Number(timer.substring(0, 2));
 	const s = Number(timer.slice(-2));
@@ -83,12 +94,7 @@ export function createTimerValueFromCountdown(timer: string) {
 }
 
 // =================== このファイル内でのみ使用する関数 ===================
-interface TimerUpdatePorps {
-	prevTimerValue: string;
-	key: string;
-	isDelete: boolean;
-}
-
+// ---- タイマーの値をいい感じに加工する【この関数は、2つの関数で共有されてる】----
 function createTimerValue({ prevTimerValue, key, isDelete }: TimerUpdatePorps) {
 	// 前のタイマーからコロンを除去、新しい文字列として新規作成
 	const valueWithoutColon = prevTimerValue.replace(':', '');

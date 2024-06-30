@@ -10,6 +10,7 @@ interface HideStyle {
 	visibility: 'visible' | 'hidden' | 'collapse';
 }
 
+// ==== コンポーネント関数 ====
 export default function ClickMe({ showTutorial }: { showTutorial: boolean }) {
 	let hideStyle: HideStyle | undefined;
 	if (!showTutorial) {
@@ -32,7 +33,7 @@ export default function ClickMe({ showTutorial }: { showTutorial: boolean }) {
 					opacity 400ms ease,
 					visibility 300ms ease;
 				@media (max-width: 500px) {
-					right:-20px;
+					right: -20px;
 					width: 40px;
 				}
 			`}
