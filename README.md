@@ -15,4 +15,6 @@
 | Prettier       | フォーマッタ | 3.3.2      |
 | ESLint         | リンター     | 8.57.0     |
 | KumaUI         | スタイル     | 1.5.7      |
+| Noto Sans JP / fontsource        | フォント     | 5.0.19      |
+| Montserrat / fontsource        | フォント     | 5.0.19      |
 | GitHub Actions | CI/CD        |            |
