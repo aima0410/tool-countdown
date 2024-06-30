@@ -30,7 +30,7 @@ export function createTimerValueFromInput({
 		// Enterだった場合はフォーカスを外して早期リターン
 		if (e.key === 'Enter') {
 			inputRef.current?.blur();
-			switchStatusState('StandbyMode');
+			switchStatusState('PlayMode');
 			return timer;
 		}
 	}
