@@ -3,7 +3,7 @@ import { useState } from 'react';
 import TimerStatus from 'src/types/TimerStatus';
 // ---- Components ----
 import ControlButton from '@ui-parts/ControlButton';
-import DoneMessage from '@components/ui-elements/DoneMessage';
+import DoneModal from '@components/ui-elements/DoneModal';
 // ---- KumaUI ----
 import { css } from '@kuma-ui/core';
 
@@ -22,7 +22,7 @@ const ControlButtonsStatus = {
 	ErrorMode: standardMode,
 	PlayMode: { start: true, stop: false, reset: true },
 	StopMode: { start: false, stop: true, reset: false },
-	ResetMode: standardMode,
+	ResetMode: { start: false, stop: true, reset: false },
 	DoneMode: { start: true, stop: true, reset: true },
 };
 
@@ -47,8 +47,13 @@ export default function ControlPanel({
 		switchStatusState('StopMode');
 	};
 	const handleClickReset = () => {
-		updateTimerState(initialTimer);
-		switchStatusState('ResetMode');
+		if (status === 'StopMode') {
+			updateTimerState(initialTimer);
+			switchStatusState('ResetMode');
+		} else {
+			updateTimerState('00:00');
+			switchStatusState('StandbyMode');
+		}
 	};
 
 	return (
@@ -59,6 +64,7 @@ export default function ControlPanel({
 					display: flex;
 					flex-direction: column;
 					width: 100%;
+					margin-bottom: 25px;
 				`}
 			>
 				<ControlButton
@@ -98,7 +104,7 @@ export default function ControlPanel({
 				) : null}
 			</fieldset>
 			{status === 'DoneMode' && (
-				<DoneMessage
+				<DoneModal
 					updateTimerState={updateTimerState}
 					switchStatusState={switchStatusState}
 					initialTimer={initialTimer}

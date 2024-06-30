@@ -17,7 +17,7 @@ const btnStyle = css`
 	&:active {
 		user-select: none;
 		box-shadow: none;
-		transform: translateY(2px);
+		transform: translateY(3px);
 	}
 	&:disabled {
 		pointer-events: none;

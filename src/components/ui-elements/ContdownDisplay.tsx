@@ -6,21 +6,22 @@ import { createTimerValueFromInput } from '@utils/createTimerValueUtils';
 import { createTimerValueFromCountdown } from '@utils/createTimerValueUtils';
 // ---- KumaUI ----
 import { css } from '@kuma-ui/core';
+
 // ==== KumaUI CSS ====
 const timerStyle = css`
-	width: 100%;
+	width: 90%;
 	border-radius: 10px;
-	margin: 0 0 20px;
 	color: #595959;
 	font-family: var(--num-font);
-	font-size: 100px;
+	font-size: clamp(50px, 18vw, 100px);
 	text-align: center;
 	font-weight: 600;
-	letter-spacing: 0.02em;
+	letter-spacing: 0.03em;
+	line-height: 1.3em;
 `;
 
 const timerPStyle = css`
-	padding: 7px 0;
+	height: 1.3em;
 	transition: all 300ms ease;
 	&:hover {
 		cursor: pointer;
@@ -32,7 +33,7 @@ const timerFocusStyle = css`
 	outline-color: #89c6b7;
 	outline-offset: 0;
 	border-radius: 10px;
-	transition: all 300ms ease;
+	transition: all 200ms ease;
 `;
 
 // ==== 型定義 ====

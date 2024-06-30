@@ -4,8 +4,20 @@ import TimerStatus from 'src/types/TimerStatus';
 import { createTimerValueFromNumPad } from '@utils/createTimerValueUtils';
 // ---- Components ----
 import PadKey from '@ui-parts/PadKey';
+// ---- KumaUI ----
+import { css } from '@kuma-ui/core';
 
+// ==== KumaUI CSS ====
+const PadRowStyle = css`
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	width: 100%;
+	padding:0 20px;
+	border-radius: 10px;
+`;
 
+// ==== 型定義 ====
 type PadKeys = {
 	num: number | null;
 	value: 'AC' | 'C' | null;
@@ -13,7 +25,7 @@ type PadKeys = {
 
 type RenderPadKey = PadKeys & {
 	id: number;
-}
+};
 
 interface Props {
 	timer: string;
@@ -22,6 +34,7 @@ interface Props {
 	switchStatusState: (newMode: TimerStatus) => void;
 }
 
+// ==== コンポーネント関数 ====
 export default function NumPad({ timer, updateTimerState, status, switchStatusState }: Props) {
 	const isInactive = {
 		numKeys: status === 'PlayMode' || status === 'DoneMode',
@@ -77,9 +90,17 @@ export default function NumPad({ timer, updateTimerState, status, switchStatusSt
 	] as const; // 不変の配列、読み取り専用
 
 	return (
-		<fieldset>
+		<fieldset
+			className={css`
+				all: unset;
+				width: 100%;
+				margin-bottom: 15px;
+			`}
+		>
 			{numPadKeys.map((padRow, i) => (
-				<div key={i}>{padRow.map((key, i) => renderPadKey({ num: key.num, value: key.value, id: i }))}</div>
+				<div key={i} className={PadRowStyle}>
+					{padRow.map((key, i) => renderPadKey({ num: key.num, value: key.value, id: i }))}
+				</div>
 			))}
 		</fieldset>
 	);

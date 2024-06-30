@@ -1,6 +1,5 @@
 // ---- Components ----
 import Timer from '@layouts/Timer';
-import Description from '@layouts/Description';
 // ---- reset.css ----
 import '/public/reset.css';
 // ---- Fonts ----
@@ -16,13 +15,12 @@ export default function App() {
 				display: flex;
 				flex-direction: column;
 				align-items: center;
-				padding: 100px 0 500px;
+				min-height: 100dvh;
+				padding: 100px 0;
 				font-family: var(--def-font);
 			`}
 		>
-			<h1>カウントダウンタイマー</h1>
 			<Timer />
-			<Description />
 		</main>
 	);
 }
