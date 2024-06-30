@@ -38,9 +38,7 @@ export default function CountdownDisplay({
 					switchStatusState('DoneMode');
 					updateTimerState('00:00');
 				} else {
-					console.log(timer);
 					const newTimerValue = createTimerValueFromCountdown(timer);
-					console.log(newTimerValue);
 					updateTimerState(newTimerValue);
 				}
 			}, 1000);

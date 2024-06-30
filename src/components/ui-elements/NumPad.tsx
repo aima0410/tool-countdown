@@ -24,7 +24,7 @@ interface Props {
 
 export default function NumPad({ timer, updateTimerState, status, switchStatusState }: Props) {
 	const isInactive = {
-		numKeys: status === 'PlayMode',
+		numKeys: status === 'PlayMode' || status === 'DoneMode',
 		funcKeys: status === 'PlayMode' || timer === '00:00',
 	};
 

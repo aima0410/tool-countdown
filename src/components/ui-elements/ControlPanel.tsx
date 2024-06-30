@@ -3,6 +3,7 @@ import { useState } from 'react';
 import TimerStatus from 'src/types/TimerStatus';
 // ---- Components ----
 import ControlButton from '@ui-parts/ControlButton';
+import DoneMessage from '@components/ui-elements/DoneMessage';
 
 interface Props {
 	timer: string;
@@ -48,30 +49,39 @@ export default function ControlPanel({
 	};
 
 	return (
-		<fieldset>
-			<ControlButton
-				value="START"
-				isInactive={isInactive.start}
-				onClick={() => {
-					handleClickStart();
-				}}
-			/>
-			<div>
+		<>
+			<fieldset>
 				<ControlButton
-					value="STOP"
-					isInactive={isInactive.stop}
+					value="START"
+					isInactive={isInactive.start}
 					onClick={() => {
-						handleClickStop();
+						handleClickStart();
 					}}
 				/>
-				<ControlButton
-					value="RESET"
-					isInactive={isInactive.reset}
-					onClick={() => {
-						handleClickReset();
-					}}
+				<div>
+					<ControlButton
+						value="STOP"
+						isInactive={isInactive.stop}
+						onClick={() => {
+							handleClickStop();
+						}}
+					/>
+					<ControlButton
+						value="RESET"
+						isInactive={isInactive.reset}
+						onClick={() => {
+							handleClickReset();
+						}}
+					/>
+				</div>
+			</fieldset>
+			{status === 'DoneMode' && (
+				<DoneMessage
+					updateTimerState={updateTimerState}
+					switchStatusState={switchStatusState}
+					initialTimer={initialTimer}
 				/>
-			</div>
-		</fieldset>
+			)}
+		</>
 	);
 }
