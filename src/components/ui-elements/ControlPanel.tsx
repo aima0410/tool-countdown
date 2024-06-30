@@ -4,6 +4,8 @@ import TimerStatus from 'src/types/TimerStatus';
 // ---- Components ----
 import ControlButton from '@ui-parts/ControlButton';
 import DoneMessage from '@components/ui-elements/DoneMessage';
+// ---- KumaUI ----
+import { css } from '@kuma-ui/core';
 
 interface Props {
 	timer: string;
@@ -20,6 +22,7 @@ const ControlButtonsStatus = {
 	ErrorMode: standardMode,
 	PlayMode: { start: true, stop: false, reset: true },
 	StopMode: { start: false, stop: true, reset: false },
+	ResetMode: standardMode,
 	DoneMode: { start: true, stop: true, reset: true },
 };
 
@@ -45,12 +48,19 @@ export default function ControlPanel({
 	};
 	const handleClickReset = () => {
 		updateTimerState(initialTimer);
-		switchStatusState('StandbyMode');
+		switchStatusState('ResetMode');
 	};
 
 	return (
 		<>
-			<fieldset>
+			<fieldset
+				className={css`
+					all: unset;
+					display: flex;
+					flex-direction: column;
+					width: 100%;
+				`}
+			>
 				<ControlButton
 					value="START"
 					isInactive={isInactive.start}
@@ -58,22 +68,34 @@ export default function ControlPanel({
 						handleClickStart();
 					}}
 				/>
-				<div>
-					<ControlButton
-						value="STOP"
-						isInactive={isInactive.stop}
-						onClick={() => {
-							handleClickStop();
-						}}
-					/>
-					<ControlButton
-						value="RESET"
-						isInactive={isInactive.reset}
-						onClick={() => {
-							handleClickReset();
-						}}
-					/>
-				</div>
+				{status === 'PlayMode' ||
+				status === 'StopMode' ||
+				status === 'ResetMode' ||
+				status === 'DoneMode' ? (
+					<div
+						className={css`
+							display: flex;
+							justify-content: space-between;
+							flex-wrap: wrap;
+							width: 100%;
+						`}
+					>
+						<ControlButton
+							value="STOP"
+							isInactive={isInactive.stop}
+							onClick={() => {
+								handleClickStop();
+							}}
+						/>
+						<ControlButton
+							value="RESET"
+							isInactive={isInactive.reset}
+							onClick={() => {
+								handleClickReset();
+							}}
+						/>
+					</div>
+				) : null}
 			</fieldset>
 			{status === 'DoneMode' && (
 				<DoneMessage

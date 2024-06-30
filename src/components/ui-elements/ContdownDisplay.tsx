@@ -4,7 +4,38 @@ import TimerStatus from 'src/types/TimerStatus';
 // ---- utiles ----
 import { createTimerValueFromInput } from '@utils/createTimerValueUtils';
 import { createTimerValueFromCountdown } from '@utils/createTimerValueUtils';
+// ---- KumaUI ----
+import { css } from '@kuma-ui/core';
+// ==== KumaUI CSS ====
+const timerStyle = css`
+	width: 100%;
+	border-radius: 10px;
+	margin: 0 0 20px;
+	color: #595959;
+	font-family: var(--num-font);
+	font-size: 100px;
+	text-align: center;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+`;
 
+const timerPStyle = css`
+	padding: 7px 0;
+	transition: all 300ms ease;
+	&:hover {
+		cursor: pointer;
+		color: #6b7c80;
+	}
+`;
+
+const timerFocusStyle = css`
+	outline-color: #89c6b7;
+	outline-offset: 0;
+	border-radius: 10px;
+	transition: all 300ms ease;
+`;
+
+// ==== 型定義 ====
 interface Props {
 	timer: string;
 	updateTimerState: (newTimerValue: string) => void;
@@ -12,6 +43,7 @@ interface Props {
 	switchStatusState: (newMode: TimerStatus) => void;
 }
 
+// ==== コンポーネント関数 ====
 export default function CountdownDisplay({
 	timer,
 	updateTimerState,
@@ -52,9 +84,9 @@ export default function CountdownDisplay({
 
 	return (
 		<>
-			<p>{status}</p>
 			{showInput ? (
 				<input
+					className={`${timerStyle} ${timerFocusStyle}`}
 					ref={inputRef}
 					placeholder={timer}
 					value={timer}
@@ -82,8 +114,9 @@ export default function CountdownDisplay({
 				/>
 			) : (
 				<p
+					className={`${timerStyle} ${timerPStyle}`}
 					onClick={() => {
-						if (status === 'StandbyMode' || status === 'StopMode') {
+						if (status === 'StandbyMode' || status === 'StopMode' || status === 'ResetMode') {
 							setShowInput(true);
 						}
 					}}
