@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
+// ---- types ----
+import TimerStatus from 'src/types/TimerStatus';
 // ---- utiles ----
 import { createTimerValueFromInput } from '@utils/createTimerValueUtils';
 
-type TimerStatus = 'StandbyMode' | 'InputMode' | 'ErrorMode' | 'PlayMode' | 'StopMode';
 
 interface Props {
 	timer: string;
@@ -26,6 +27,12 @@ export default function CountdownDisplay({
 			inputRef.current.focus();
 		}
 	}, [showInput]);
+
+	if (status === 'PlayMode') {
+		const intervalId = setInterval(() => {
+			timer === '00:00' ? clearInterval(intervalId) : updateTimerState('00:00');
+		}, 1000);
+	}
 
 	return (
 		<>

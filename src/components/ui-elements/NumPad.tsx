@@ -1,9 +1,10 @@
+// ---- types ----
+import TimerStatus from 'src/types/TimerStatus';
 // ---- utils ----
 import { createTimerValueFromNumPad } from '@utils/createTimerValueUtils';
 // ---- Components ----
 import PadKey from '@ui-parts/PadKey';
 
-type TimerStatus = 'StandbyMode' | 'InputMode' | 'ErrorMode' | 'PlayMode' | 'StopMode';
 
 type PadKeys = {
 	num: number | null;

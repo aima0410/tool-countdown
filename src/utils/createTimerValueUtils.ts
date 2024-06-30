@@ -1,6 +1,7 @@
 import { isValidInputKey } from '@utils/validateUtils';
+// ---- types ----
+import TimerStatus from 'src/types/TimerStatus';
 
-type TimerStatus = 'StandbyMode' | 'InputMode' | 'ErrorMode' | 'PlayMode' | 'StopMode';
 
 interface Props {
 	e: React.KeyboardEvent<HTMLInputElement>;

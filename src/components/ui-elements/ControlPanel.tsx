@@ -1,12 +1,12 @@
+import { useState } from 'react';
+// ---- types ----
+import TimerStatus from 'src/types/TimerStatus';
 // ---- Components ----
 import ControlButton from '@ui-parts/ControlButton';
 
-type TimerStatus = 'StandbyMode' | 'InputMode' | 'ErrorMode' | 'PlayMode' | 'StopMode';
-
 interface Props {
+	timer: string;
 	updateTimerState: (newTimerValue: string | undefined) => void;
-	initialTimer: string;
-	saveInitialTimer: () => void;
 	status: TimerStatus;
 	switchStatusState: (newMode: TimerStatus) => void;
 }
@@ -19,10 +19,21 @@ const ControlButtonsStatus = {
 	ErrorMode: standardMode,
 	PlayMode: { start: true, stop: false, reset: true },
 	StopMode: { start: false, stop: true, reset: false },
+	DoneMode: { start: true, stop: true, reset: true },
 };
 
-export default function ControlPanel({ updateTimerState, initialTimer, saveInitialTimer, status, switchStatusState }: Props) {
+export default function ControlPanel({
+	timer,
+	updateTimerState,
+	status,
+	switchStatusState,
+}: Props) {
+	const [initialTimer, setInitialTimer] = useState('00:00');
 	const isInactive = ControlButtonsStatus[status];
+
+	const saveInitialTimer = () => {
+		setInitialTimer(timer);
+	};
 
 	const handleClickStart = () => {
 		status !== 'StopMode' && saveInitialTimer();
