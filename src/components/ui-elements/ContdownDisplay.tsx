@@ -4,6 +4,8 @@ import TimerStatus from 'src/types/TimerStatus';
 // ---- utiles ----
 import { createTimerValueFromInput } from '@utils/createTimerValueUtils';
 import { createTimerValueFromCountdown } from '@utils/createTimerValueUtils';
+// ---- Components ----
+import ClickMe from '@components/ui-parts/ClickMe';
 // ---- KumaUI ----
 import { css } from '@kuma-ui/core';
 
@@ -21,10 +23,10 @@ const timerStyle = css`
 `;
 
 const timerPStyle = css`
+	position: relative;
 	height: 1.3em;
 	transition: all 300ms ease;
 	&:hover {
-		cursor: pointer;
 		color: #6b7c80;
 	}
 `;
@@ -52,7 +54,17 @@ export default function CountdownDisplay({
 	switchStatusState,
 }: Props) {
 	const [showInput, setShowInput] = useState(false);
+	const [showTutorial, setShowTutorial] = useState(false);
 	const inputRef = useRef<HTMLInputElement>(null);
+
+	// チュートリアルの一時的な表示
+	useEffect(() => {
+		setShowTutorial(true);
+		const timer = setTimeout(() => {
+			setShowTutorial(false);
+		}, 5000);
+		return () => clearTimeout(timer);
+	}, []);
 
 	// 自動フォーカスするための設定
 	useEffect(() => {
@@ -114,16 +126,18 @@ export default function CountdownDisplay({
 					name="countdown"
 				/>
 			) : (
-				<p
-					className={`${timerStyle} ${timerPStyle}`}
+				<div
 					onClick={() => {
 						if (status === 'StandbyMode' || status === 'StopMode' || status === 'ResetMode') {
 							setShowInput(true);
 						}
 					}}
+					className={`${timerStyle} ${timerPStyle}`}
+					style={{ cursor: status === 'PlayMode' ? 'not-allowed' : 'pointer' }}
 				>
+					<ClickMe showTutorial={showTutorial} />
 					{timer}
-				</p>
+				</div>
 			)}
 		</>
 	);
