@@ -19,23 +19,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
-          # npmのキャッシュを効かすために設定
+          node-version: 20
           cache: npm
       - name: npm install
-        run: npm install
+        run: npm ci
       - name: npm build
-        run: npm build
-        # GIthubページは https://USERNAME.github.io/REPOSITORY_NAME/
-        # となるので、envを追加してviteのベースパスを変えるように設定します。
+        run: npm run build
         env:
           GITHUB_PAGES: true
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v2
         with:
           path: ./dist
 
@@ -48,4 +45,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v2
