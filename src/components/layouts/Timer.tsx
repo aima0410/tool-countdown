@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+// ---- utils ----
+import { playCompletionSound } from '@utils/soundUtils';
 // ---- types ----
 import TimerStatus from 'src/types/TimerStatus';
 // ---- Components ----
@@ -8,18 +10,29 @@ import NumPad from '@ui-elements/NumPad';
 import Message from '@components/ui-elements/Message';
 // ---- KumaUI ----
 import { css } from '@kuma-ui/core';
+import ClearTimerButton from '@components/ui-parts/ClearTimerButton';
 
+// ==== コンポーネント関数 ====
 export default function Timer() {
 	const [timer, setTimer] = useState('00:00');
 	const [status, setStatus] = useState<TimerStatus>('StandbyMode');
 
+	// タイマーの値を更新
 	const updateTimerState = (newTimerValue: string | undefined) => {
 		setTimer(newTimerValue ?? '00:00');
 	};
 
+	// タイマーのModeを変更
 	const switchStatusState = (newMode: TimerStatus) => {
 		setStatus(newMode);
 	};
+
+	// カウントダウン完了時のサウンド設定
+	useEffect(() => {
+		if (timer === '00:00' && status === 'DoneMode') {
+			setTimeout(() => playCompletionSound(), 500);
+		}
+	}, [timer]);
 
 	return (
 		<section
@@ -41,6 +54,9 @@ export default function Timer() {
 				}
 			`}
 		>
+			{timer !== '00:00' && status === 'StandbyMode' && (
+				<ClearTimerButton updateTimerState={updateTimerState} />
+			)}
 			<CountdownDisplay
 				timer={timer}
 				updateTimerState={updateTimerState}
