@@ -76,7 +76,7 @@ export default function ControlPanel({
 			>
 				<ControlButton
 					value="START"
-					isInactive={isInactive.start}
+					isInactive={timer === '00:00' ? true : isInactive.start}
 					onClick={() => {
 						handleClickStart();
 					}}
