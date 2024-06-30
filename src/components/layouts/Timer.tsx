@@ -5,6 +5,7 @@ import TimerStatus from 'src/types/TimerStatus';
 import CountdownDisplay from '@ui-elements/ContdownDisplay';
 import ControlPanel from '@ui-elements/ControlPanel';
 import NumPad from '@ui-elements/NumPad';
+import Message from '@components/ui-elements/Message';
 // ---- KumaUI ----
 import { css } from '@kuma-ui/core';
 
@@ -23,9 +24,11 @@ export default function Timer() {
 	return (
 		<section
 			className={css`
+				position: relative;
 				display: grid;
 				place-items: center;
-				width: 500px;
+				max-width: 500px;
+				width: 86vw;
 				padding: 50px 40px 40px;
 				background-color: #fff;
 				box-shadow:
@@ -33,6 +36,9 @@ export default function Timer() {
 					-5px -5px 8px #a3d1c0;
 				border-radius: 10px;
 				margin: 0 auto 50px;
+				@media (max-width: 500px) {
+					padding: 50px 20px 20px;
+				}
 			`}
 		>
 			<CountdownDisplay
@@ -41,6 +47,7 @@ export default function Timer() {
 				status={status}
 				switchStatusState={switchStatusState}
 			/>
+			<Message timer={timer} status={status} />
 			<ControlPanel
 				timer={timer}
 				updateTimerState={updateTimerState}
