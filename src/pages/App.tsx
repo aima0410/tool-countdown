@@ -1,5 +1,6 @@
 // ---- Components ----
 import Timer from '@layouts/Timer';
+import VisitRepositoryButton from '@components/ui-parts/VisitRepositoryButton';
 // ---- reset.css ----
 import '/public/reset.css';
 // ---- Fonts ----
@@ -22,6 +23,7 @@ export default function App() {
 			`}
 		>
 			<Timer />
+			<VisitRepositoryButton />
 		</main>
 	);
 }
