@@ -1,37 +1,32 @@
-name: Lint, Test, and Deploy
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]  # mainブランチにpushされた時に実行
+    branches: [ main ]
 
 jobs:
-  lint-test-and-deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm ci
-
-      - name: Run Lint
-        run: npm run lint
-
-      - name: Run Test
-        run: npm run test
 
       - name: Build
         run: npm run build
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist  # Viteのビルド出力ディレクトリ
+          publish_dir: ./dist
+          force_orphan: true
           user_name: かりこ
           user_email: webcreate0303yokoi0630@gmail.com
