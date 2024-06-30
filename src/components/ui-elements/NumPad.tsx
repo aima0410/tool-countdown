@@ -11,6 +11,10 @@ type PadKeys = {
 	value: 'AC' | 'C' | null;
 };
 
+type RenderPadKey = PadKeys & {
+	id: number;
+}
+
 interface Props {
 	timer: string;
 	updateTimerState: (newTimerValue: string) => void;
@@ -38,10 +42,11 @@ export default function NumPad({ timer, updateTimerState, status, switchStatusSt
 		}
 	};
 
-	const renderPadKey = ({ num, value }: PadKeys) => (
+	const renderPadKey = ({ num, value, id }: RenderPadKey) => (
 		<PadKey
 			num={num}
 			value={value}
+			key={id}
 			onClick={() => handleClick(value || String(num))}
 			isInactive={isInactive}
 		/>
@@ -74,7 +79,7 @@ export default function NumPad({ timer, updateTimerState, status, switchStatusSt
 	return (
 		<fieldset>
 			{numPadKeys.map((padRow, i) => (
-				<div key={i}>{padRow.map(key => renderPadKey({ num: key.num, value: key.value }))}</div>
+				<div key={i}>{padRow.map((key, i) => renderPadKey({ num: key.num, value: key.value, id: i }))}</div>
 			))}
 		</fieldset>
 	);
