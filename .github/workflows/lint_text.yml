@@ -1,9 +1,11 @@
-name: Lint and Test
+name: Lint, Test, and Deploy
 
-on: push
+on:
+  push:
+    branches: [ main ]  # mainブランチにpushされた時に実行
 
 jobs:
-  lint-and-test:
+  lint-test-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,5 +24,14 @@ jobs:
 
       - name: Run Test
         run: npm run test
-# 「vite 静的ホスト」で検索。
-# push時に自動でテストとデプロイを走らせることができる。
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist  # Viteのビルド出力ディレクトリ
+          user_name: かりこ
+          user_email: webcreate0303yokoi0630@gmail.com
