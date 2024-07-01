@@ -1,47 +1,59 @@
 name: deploy
 
 on:
+  # イベントトリガー: mainブランチへのプッシュまたは手動でトリガーされたときにワークフローが開始されます。
   push:
     branches: ['main']
   workflow_dispatch:
 
+# パーミッションの設定: ワークフローが必要とする権限を設定します。
 permissions:
   contents: read
   pages: write
   id-token: write
 
+  # 並行実行の制御: 同じグループ内の他の実行中のジョブをキャンセルし、グループ内で一度に一つのジョブだけが実行されるようにします。
 concurrency:
   group: 'pages'
   cancel-in-progress: true
 
+# ビルドジョブ (build):
 jobs:
   build:
     runs-on: ubuntu-latest
+    # リポジトリのコードをチェックアウトします。
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      # Node.jsのセットアップとキャッシュの設定を行います。
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
+      # 依存関係をインストールします (npm ci)。
       - name: npm install
         run: npm ci
+        # プロジェクトをビルドします (npm run build)。
       - name: npm build
         run: npm run build
         env:
           GITHUB_PAGES: true
+      # ビルド成果物をアップロードします (actions/upload-pages-artifact@v2を使用)。
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
           path: ./dist
 
+  # デプロイジョブ (deploy):
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    # buildジョブが完了している必要があります (needs: build)。
     needs: build
+    # actions/deploy-pages@v2を使用して、ビルド成果物をGitHub Pagesにデプロイします。
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
