@@ -42,6 +42,7 @@ const timerFocusStyle = css`
 interface Props {
 	timer: string;
 	updateTimerState: (newTimerValue: string) => void;
+	saveInitialTimer: () => void;
 	status: TimerStatus;
 	switchStatusState: (newMode: TimerStatus) => void;
 }
@@ -50,6 +51,7 @@ interface Props {
 export default function CountdownDisplay({
 	timer,
 	updateTimerState,
+	saveInitialTimer,
 	status,
 	switchStatusState,
 }: Props) {
@@ -114,6 +116,7 @@ export default function CountdownDisplay({
 							e,
 							inputRef,
 							timer,
+							saveInitialTimer,
 							status,
 							switchStatusState,
 						});

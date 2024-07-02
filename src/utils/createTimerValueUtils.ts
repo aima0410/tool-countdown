@@ -8,6 +8,7 @@ interface Props {
 	e: React.KeyboardEvent<HTMLInputElement>;
 	inputRef: React.RefObject<HTMLInputElement>;
 	timer: string;
+	saveInitialTimer: () => void;
 	status: TimerStatus;
 	switchStatusState: (newMode: TimerStatus) => void;
 }
@@ -24,6 +25,7 @@ export function createTimerValueFromInput({
 	e,
 	inputRef,
 	timer,
+	saveInitialTimer,
 	status,
 	switchStatusState,
 }: Props) {
@@ -39,6 +41,7 @@ export function createTimerValueFromInput({
 		// Enterだった場合はフォーカスを外して早期リターン
 		if (e.key === 'Enter') {
 			inputRef.current?.blur();
+			saveInitialTimer();
 			switchStatusState('PlayMode');
 			return timer;
 		}

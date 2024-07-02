@@ -15,11 +15,17 @@ import ClearTimerButton from '@components/ui-parts/ClearTimerButton';
 // ==== コンポーネント関数 ====
 export default function Timer() {
 	const [timer, setTimer] = useState('00:00');
+	const [initialTimer, setInitialTimer] = useState('00:00');
 	const [status, setStatus] = useState<TimerStatus>('StandbyMode');
 
 	// タイマーの値を更新
 	const updateTimerState = (newTimerValue: string | undefined) => {
 		setTimer(newTimerValue ?? '00:00');
+	};
+
+	// セットしたタイマーの値を保存
+	const saveInitialTimer = () => {
+		setInitialTimer(timer);
 	};
 
 	// タイマーのModeを変更
@@ -60,6 +66,7 @@ export default function Timer() {
 			<CountdownDisplay
 				timer={timer}
 				updateTimerState={updateTimerState}
+				saveInitialTimer={saveInitialTimer}
 				status={status}
 				switchStatusState={switchStatusState}
 			/>
@@ -67,6 +74,8 @@ export default function Timer() {
 			<ControlPanel
 				timer={timer}
 				updateTimerState={updateTimerState}
+				initialTimer={initialTimer}
+				saveInitialTimer={saveInitialTimer}
 				status={status}
 				switchStatusState={switchStatusState}
 			/>

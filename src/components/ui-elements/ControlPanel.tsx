@@ -1,4 +1,3 @@
-import { useState } from 'react';
 // ---- types ----
 import TimerStatus from 'src/types/TimerStatus';
 // ---- Components ----
@@ -11,6 +10,8 @@ import { css } from '@kuma-ui/core';
 interface Props {
 	timer: string;
 	updateTimerState: (newTimerValue: string | undefined) => void;
+	initialTimer: string;
+	saveInitialTimer: () => void;
 	status: TimerStatus;
 	switchStatusState: (newMode: TimerStatus) => void;
 }
@@ -32,16 +33,12 @@ const ControlButtonsStatus = {
 export default function ControlPanel({
 	timer,
 	updateTimerState,
+	initialTimer,
+	saveInitialTimer,
 	status,
 	switchStatusState,
 }: Props) {
-	const [initialTimer, setInitialTimer] = useState('00:00');
 	const isInactive = ControlButtonsStatus[status];
-
-	// セットしたタイマーの値を保存
-	const saveInitialTimer = () => {
-		setInitialTimer(timer);
-	};
 
 	// STARTボタンのイベントハンドラ関数
 	const handleClickStart = () => {
